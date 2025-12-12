@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/file_storage
+    username: file_storage
+    password: file_storage
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+s3:
+  endpoint: http://localhost:9000
+  region: us-east-1
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket: antiplagiarism-works

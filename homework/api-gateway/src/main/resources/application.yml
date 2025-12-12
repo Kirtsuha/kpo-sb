@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+services:
+  storage:
+    base-url: http://localhost:8081
+  analysis:
+    base-url: http://localhost:8082
+
+springdoc:
+  swagger-ui:
+    path: /swagger
