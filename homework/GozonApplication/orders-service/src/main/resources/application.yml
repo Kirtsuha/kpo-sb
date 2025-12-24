@@ -1,0 +1,34 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: orders-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://orders-db:5432/orders}
+    username: ${DB_USER:orders}
+    password: ${DB_PASS:orders}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:kafka:9092}
+    consumer:
+      group-id: orders-service
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual
+    producer:
+      acks: all
+
+app:
+  outbox:
+    poll-interval: 1000
+    batch-size: 50
+
+#springdoc:
+#  api-docs:
+#    enabled: true
+#    path: /v3/api-docs

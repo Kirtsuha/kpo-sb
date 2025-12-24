@@ -1,0 +1,34 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: payments-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://payments-db:5432/payments}
+    username: ${DB_USER:payments}
+    password: ${DB_PASS:payments}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:kafka:9092}
+    consumer:
+      group-id: payments-service
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual
+    producer:
+      acks: all
+
+app:
+  outbox:
+    poll-interval: 1000
+    batch-size: 50
+
+#springdoc:
+#  api-docs:
+#    enabled: true
+#    path: /v3/api-docs
