@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: orders
+          uri: http://orders-service:8081
+          predicates:
+            - Path=/orders/**
+        - id: orders-docs
+          uri: http://orders-service:8081
+          predicates:
+            - Path=/orders/v3/api-docs, /orders/v3/api-docs/**
+          filters:
+            - RewritePath=/orders/(?<segment>v3/api-docs.*), /${segment}
+
+        - id: payments
+          uri: http://payments-service:8082
+          predicates:
+            - Path=/payments/**
+        - id: payments-docs
+          uri: http://payments-service:8082
+          predicates:
+            - Path=/payments/v3/api-docs, /payments/v3/api-docs/**
+          filters:
+            - RewritePath=/payments/(?<segment>v3/api-docs.*), /${segment}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: orders
+        url: /orders/v3/api-docs
+      - name: payments
+        url: /payments/v3/api-docs
